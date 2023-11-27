@@ -21,10 +21,10 @@ const Home: NextPage = () => {
 	}, [address]);
 
   const { data, isLoading, isSuccess, write } = useContractWrite({
-    address: `0x${process.env.REACT_APP_ERC6551REGISTRY_ADDRESS}` || "",
+    address: "0x3d34364882b03E24ab0318aa22b5D40aa89E10e4",
     abi: wagmigotchiABI.abi,
     functionName: 'createAccount',
-    args: [process.env.REACT_APP_ERC6551ACOUNT_ADDRESS, 5, process.env.REACT_APP_GIFT_NFT, 1, 0, "0x"]
+    args: [process.env.NEXT_PUBLIC_ERC6551ACOUNT_ADDRESS, 5, process.env.NEXT_PUBLIC_GIFT_NFT, 1, 0, "0x"]
   })
 
   return (
