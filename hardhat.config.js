@@ -11,7 +11,7 @@ module.exports = {
     },
       goerli: {
         url: `${process.env.ALCHEMY_GOERLI_URL}`,
-        accounts: [`0x${process.env.PRIVATE_KEY}`],
+        accounts: [`0x${process.env.PRIVATE_KEY}`]
       }, 
   }, 
   defaultNetwork: "hardhat",
