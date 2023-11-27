@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 	}, [address]);
 
   const { data, isLoading, isSuccess, write } = useContractWrite({
-    address: '0x3d34364882b03E24ab0318aa22b5D40aa89E10e4',
+    address: `0x${process.env.REACT_APP_ERC6551REGISTRY_ADDRESS}` || "",
     abi: [    {
       "inputs": [
         {
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
       "type": "function"
     }],
     functionName: 'createAccount',
-    args: ["0x3d34364882b03E24ab0318aa22b5D40aa89E10e4", 5, "0xc813f2BE1Ced8B66c2e635954155354a8d2155Ae", 1, 0, "0x"]
+    args: [process.env.REACT_APP_ERC6551ACOUNT_ADDRESS, 5, process.env.REACT_APP_GIFT_NFT, 1, 0, "0x"]
   })
 
   return (
