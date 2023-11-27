@@ -4,7 +4,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { Header } from '../components/Header';
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'
-import wagmigotchiABI from '../../artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json'
+import wagmigotchiABI from '../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json'
 import {useState, useEffect} from 'react'
 import { useAccount } from 'wagmi';
 
@@ -22,50 +22,7 @@ const Home: NextPage = () => {
 
   const { data, isLoading, isSuccess, write } = useContractWrite({
     address: `0x${process.env.REACT_APP_ERC6551REGISTRY_ADDRESS}` || "",
-    abi: [    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "implementation",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "chainId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "tokenContract",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "salt",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "initData",
-          "type": "bytes"
-        }
-      ],
-      "name": "createAccount",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }],
+    abi: wagmigotchiABI.abi,
     functionName: 'createAccount',
     args: [process.env.REACT_APP_ERC6551ACOUNT_ADDRESS, 5, process.env.REACT_APP_GIFT_NFT, 1, 0, "0x"]
   })
