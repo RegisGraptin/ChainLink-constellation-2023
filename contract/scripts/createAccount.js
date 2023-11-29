@@ -4,11 +4,11 @@ require("dotenv").config();
 
 async function main() {
   const Registry = await ethers.getContractFactory("ERC6551Registry");
-  const registry = await Registry.attach(process.env.ERC6551REGISTRY_ADDRESS);
+  const registry = await Registry.attach(process.env.NEXT_PUBLIC_ERC6551REGISTRY_ADDRESS);
   //update salt for a more secure hash
   const salt = 0;  
-  const implementation = process.env.ERC6551ACOUNT_ADDRESS
-  const tokenAddress = process.env.GIFT_NFT;
+  const implementation = process.env.NEXT_PUBLIC_ERC6551ACOUNT_ADDRESS
+  const tokenAddress = process.env.NEXT_PUBLIC_GIFT_NFT;
   //replace with tokenId minted in scripts/mint.js, logged on the CLI
   const tokenId = 1
   const chainID = 5 //goerli
