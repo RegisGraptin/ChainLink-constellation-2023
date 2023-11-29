@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 	}, [address]);
 
   const { data, isLoading, isSuccess, write } = useContractWrite({
-    address: "0x3d34364882b03E24ab0318aa22b5D40aa89E10e4",
+    address: "0xa6bafDeC5F1B6457e91d1597c3B6d2F2e717C41b",
     abi: wagmigotchiABI.abi,
     functionName: 'createAccount',
     args: [process.env.NEXT_PUBLIC_ERC6551ACOUNT_ADDRESS, 5, process.env.NEXT_PUBLIC_GIFT_NFT, 1, 0, "0x"]

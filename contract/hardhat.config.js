@@ -7,12 +7,16 @@ module.exports = {
   networks: {
 		//Add extra chains as needed 
     hardhat: {
-      chainId: 1337,
+      chainId: 11155111,
     },
-    goerli: {
-      url: `${process.env.ALCHEMY_GOERLI_URL}`,
-      accounts: [`0x${process.env.PRIVATE_KEY}`]
-    }, 
+    sepolia: {
+      url: `${process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_URL}`,
+      accounts: [`0x${process.env.NEXT_PUBLIC_PRIVATE_KEY}`]
+    },
+    fuji: {
+      url: "https://api.avax-test.network/ext/bc/C/rpc",
+      accounts: [process.env.NEXT_PUBLIC_PRIVATE_KEY]
+    }
   }, 
   defaultNetwork: "hardhat",
 };
