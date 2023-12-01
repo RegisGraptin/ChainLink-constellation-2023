@@ -11,7 +11,7 @@ async function main() {
   const tokenAddress = process.env.NEXT_PUBLIC_GIFT_NFT;
   //replace with tokenId minted in scripts/mint.js, logged on the CLI
   const tokenId = 1
-  const chainID = 5 //goerli
+  const chainID = 11155111 //goerli
   const initData = "0x";
 
   const tx = await registry.createAccount(implementation, chainID, tokenAddress, tokenId, salt, initData);
