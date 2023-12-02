@@ -17,7 +17,7 @@ import {
   useStartConversation,
 } from "@xmtp/react-sdk";
 import { avalancheFuji} from "wagmi/chains"
-
+import { JsonRpcProvider, JsonRpcSigner } from 'ethers';
 const Card: NextPage =  () =>  {
 
   function isValidAddress(address: string): boolean {
@@ -26,7 +26,7 @@ const Card: NextPage =  () =>  {
   }
 
     const {write} = useContractWrite({
-      address: "0xe566b65Bc13604Eca2482D2432Ad6C75bf8eAA09",
+      address: "0x09cb994F331d251d725B748E75CF4748F2dA6E1f",
       abi: ccipABI.abi,
       functionName: 'transferTokensPayNative',
       args: ["16015286601757825753", process.env.NEXT_PUBLIC_TBD_ACCOUNT, "0xD21341536c5cF5EB1bcb58f6723cE26e8D8E90e4", 1000000000000000]
@@ -50,9 +50,6 @@ const Card: NextPage =  () =>  {
 
 
   // Initialize client
-  const publicClient = usePublicClient()
-
-  console.log("walletClient", publicClient)
 
 // Create the client with your wallet. This will connect to the XMTP development network by default
 // const xmtp = await Client.create(publicClient, { env: "dev" });
