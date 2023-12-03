@@ -11,12 +11,16 @@ module.exports = {
     },
     sepolia: {
       url: `${process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_URL}`,
-      accounts: [`0x${process.env.NEXT_PUBLIC_PRIVATE_KEY}`]
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
     },
     fuji: {
       url: "https://api.avax-test.network/ext/bc/C/rpc",
-      accounts: [process.env.NEXT_PUBLIC_PRIVATE_KEY]
-    }
+      accounts: [process.env.PRIVATE_KEY]
+    },
+    mumbai: {
+      url: `${process.env.MUMBAI_ALCHEMY_API}`,
+      accounts: ["0x" + process.env.PRIVATE_KEY],
+    },
   }, 
   defaultNetwork: "hardhat",
 };

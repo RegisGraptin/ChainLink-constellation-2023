@@ -1,5 +1,5 @@
-require("@chainlink/env-enc").config()
-// require('dotenv').config()
+// require("@chainlink/env-enc").config()
+require('dotenv').config()
 
 const DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS = 2;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -23,7 +23,7 @@ const networks = {
     ],
   },
   polygonMumbai: {
-    gasPrice: 20_000_000_000,
+    gasPrice: undefined,
     nonce: undefined,
     accounts: [PRIVATE_KEY],
     verifyApiKey: process.env.POLYGONSCAN_API_KEY || "UNSET",
