@@ -6,18 +6,11 @@ import { Header } from '../../components/Header';
 import { useContractRead, useContractWrite, useWalletClient, usePublicClient  } from 'wagmi';
 import wagmigotchiABI from '../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json';
 import ccipABI from '../../../contract/artifacts/contracts/TokenTransferor.sol/TokenTransferor.json';
-import { useState, useEffect } from 'react';
-import {
-  Client,
-  useStreamMessages,
-  useClient,
-  useMessages,
-  useConversations,
-  useCanMessage,
-  useStartConversation,
-} from "@xmtp/react-sdk";
-import { avalancheFuji} from "wagmi/chains"
-import { JsonRpcProvider, JsonRpcSigner } from 'ethers';
+import { TokenboundClient } from '@tokenbound/sdk';
+import { Client } from "@xmtp/xmtp-js";
+
+const { ethers } = require("ethers");
+
 const Card: NextPage =  () =>  {
 
   function isValidAddress(address: string): boolean {
@@ -48,8 +41,30 @@ const Card: NextPage =  () =>  {
 
   // XMTP part
 
+  const xmtpInit = async () => {
+
+    const provider = await new ethers.AlchemyProvider("sepolia", process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_API_KEY);
+
+    const wallet = await new ethers.Wallet(
+      process.env.NEXT_PUBLIC_PRIVATE_KEY,
+      provider
+    );
+      
+    console.log(wallet)
+    const tokenboundClient = await new TokenboundClient({
+      signer: wallet,
+      chainId: 11155111,
+    });
+    // const xmtp = await Client.create(tokenboundClient.signer);
+    // const conversation = await xmtp.conversations.newConversation("0xD8C868b4cF90b97D623Cb73DfC4d35772c9e7482");
+
+  }
+
+
 
   // Initialize client
+
+  
 
 // Create the client with your wallet. This will connect to the XMTP development network by default
 // const xmtp = await Client.create(publicClient, { env: "dev" });
@@ -89,12 +104,12 @@ const Card: NextPage =  () =>  {
                   onClick={() => write()}>
                   Send some money to the gift card
                 </button>
-                {/* <button 
+                <button 
                   type="button" 
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  onClick={() => initXMTP()}>
+                  onClick={() => xmtpInit()}>
                   connect XMTP
-                </button> */}
+                </button>
               </section>
               <form>
       <input
