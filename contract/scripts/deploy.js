@@ -1,9 +1,17 @@
+const { ethers } = require('hardhat');
 require("hardhat");
 
+const { networks } = require("../networks.js");
+
+const NETWORK = "polygonMumbai";
+
+const routerAddress = networks[NETWORK].functionsRouter;
+const donIdBytes32 = ethers.encodeBytes32String(networks[NETWORK].donId);
+
+
 async function main() {
-  const Giftnft = await ethers.deployContract("GiftNFT");
+  const Giftnft = await ethers.deployContract("GiftNFT", [routerAddress, donIdBytes32]);
   const giftnft = await Giftnft.waitForDeployment();
- 
 
   const Account = await ethers.deployContract("ERC6551Account");
   const account = await Account.waitForDeployment();
