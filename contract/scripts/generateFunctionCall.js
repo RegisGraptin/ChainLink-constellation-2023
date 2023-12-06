@@ -9,11 +9,20 @@ const { SecretsManager } = require("@chainlink/functions-toolkit");
 const { SubscriptionManager } = require("@chainlink/functions-toolkit");
 
 const { ethers } = require("hardhat");
+const { Wallet } = require("ethers");
 
 const { utils } = require("ethers");
 const { networks } = require("../networks.js");
 
 const NETWORK = "polygonMumbai";
+const RPC_URL = process.env.MUMBAI_ALCHEMY_API;
+
+const provider = new ethers.providers.AlchemyProvider(RPC_URL);
+const wallet = new Wallet(process.env.PRIVATE_KEY || "UNSET");
+const signer = wallet.connect(provider);
+
+
+
 
 const FUNCTIONS_ROUTER_ADDRESS = networks[NETWORK].functionsRouter;
 const DON_ID = networks[NETWORK].donId;
@@ -24,8 +33,10 @@ const SUBSCRIPTION_ID = "718";
 
 const GPT_API_KEY = process.env.GPT_API_TOKEN;
 
-
 const LINK_AMOUNT = "3.3"
+
+const CONTRACT_ADDRESS = "0xeE28c200b5001f99718074AFC98A2549b84a4203"
+
 
 async function deploySmartContract() {
     const donIdBytes32 = ethers.encodeBytes32String(DON_ID);
@@ -37,12 +48,20 @@ async function deploySmartContract() {
     return giftnft;
 }
 
+async function loadSmartContract(contractAddress) {
+  const GiftNft = await ethers.getContractFactory("GiftNFT");
+  const giftnft = await GiftNft.attach(contractAddress);
+  return giftnft;
+}
+
 // giftnft: eth.Contract
 async function fundSmartContract (giftnft) {
+
+    console.log("Fund smart contract");
     
     const consumerAddress = giftnft.target;
 
-    const [signer] = await ethers.getSigners();
+    // const [signer] = await ethers.getSigners();
 
     const subscriptionManager = new SubscriptionManager({
       signer,
@@ -79,7 +98,7 @@ async function fundSmartContract (giftnft) {
 // apiKey: string
 async function setSecretVariable(apiKey) {
   
-  const [signer] = await ethers.getSigners();
+  // const [signer] = await ethers.getSigners();
 
   const secretsManager = new SecretsManager({
     signer,
@@ -89,7 +108,7 @@ async function setSecretVariable(apiKey) {
 
   await secretsManager.initialize();
 
-  if (!apiKey && apiKey.length == 0) {
+  if (!apiKey && apiKey.length === 0) {
     throw Error("Please verify the secret key. Seems it is not defined.");
   }
 
@@ -157,10 +176,23 @@ async function createRequest(giftContract, encryptedSecretsReference) {
 }
 
 
-deploySmartContract().then(
+if (CONTRACT_ADDRESS === "") {
+  console.log("Deploy smart contract:\n")
+  deploySmartContract().then(
     async (giftnft) => {
       await fundSmartContract(giftnft);
       let encryptedSecrets = await setSecretVariable(GPT_API_KEY);
       await createRequest(giftnft, encryptedSecrets);
     }
-)
+  )
+} else {
+  console.log("Load contract from address:\n")
+
+  loadSmartContract(CONTRACT_ADDRESS).then(
+    async (giftnft) => {
+      let encryptedSecrets = await setSecretVariable(GPT_API_KEY);
+      await createRequest(giftnft, encryptedSecrets);
+    }
+  )
+}
+
