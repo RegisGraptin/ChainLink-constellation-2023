@@ -1,28 +1,40 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Header } from '../../components/Header';
-import { useContractRead, useContractWrite, useWalletClient, usePublicClient, usePrepareSendTransaction, useSendTransaction } from 'wagmi';
+import { useContractRead, useContractWrite } from 'wagmi';
 import wagmigotchiABI from '../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json';
 import ccipABI from '../../../contract/artifacts/contracts/TokenTransferor.sol/TokenTransferor.json';
 import { TokenboundClient } from '@tokenbound/sdk';
-import { Client } from "@xmtp/xmtp-js";
 
 import link_token_abi from "../../resources/link_token_abi.json";
+import { useEthersSigner, walletClientToSigner } from '../../components/Signer';
+
+const { Networks } = require("../../components/Networks");
 
 const { ethers } = require("ethers");
 
 
-const LINK_TOKEN_ADDRESS_MUMBAI = "0x326C977E6efc84E512bB9C30f76E30c160eD06FB";
+const { SubscriptionManager } = require("@chainlink/functions-toolkit");
+
 
 // Example conrtact address
 // const CONTRACT_ADDRESS = "0xeE28c200b5001f99718074AFC98A2549b84a4203"
 
+// http://localhost:3000/card/0xeE28c200b5001f99718074AFC98A2549b84a4203
 
 const Card: NextPage = () => {
 
+  const NETWORK = "polygonMumbai";
+
+  const LINK_TOKEN_ADDRESS = Networks[NETWORK].linkToken;
+  const FUNCTIONS_ROUTER_ADDRESS = Networks[NETWORK].functionsRouter;
+  
+
   const DEFAULT_LINK_AMOUNT_TOKEN = 3;
+
+  // Get the signer from the session
+  const signer = useEthersSigner();
 
   // Get the slug from the url
   const router = useRouter();
@@ -34,9 +46,22 @@ const Card: NextPage = () => {
     return addressRegex.test(address);
   }
 
+  
+
+  async function createSubscriptionChainLinkFunction() {
+    
+    const subscriptionManager = new SubscriptionManager({
+      signer,
+      LINK_TOKEN_ADDRESS,
+      FUNCTIONS_ROUTER_ADDRESS,
+    });
+
+  }
+
+
   // Send Link to the smart contract address
   const { write: sendLinkTokenToSmartContract } = useContractWrite({
-    address: LINK_TOKEN_ADDRESS_MUMBAI,
+    address: LINK_TOKEN_ADDRESS,
     abi: link_token_abi,
     functionName: "transfer",
     args: [
@@ -133,7 +158,7 @@ const Card: NextPage = () => {
                 <button
                   type="button"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  onClick={() => sendLinkTokenToSmartContract()}>
+                  onClick={() => createSubscriptionChainLinkFunction()}>
                   Send some link token
                 </button>
 
