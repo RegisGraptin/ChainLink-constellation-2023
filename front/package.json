@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ensdomains/ens-contracts": "^0.0.22",
     "@rainbow-me/rainbowkit": "^1.3.0",
     "@tokenbound/sdk": "^0.4.5",
     "@xmtp/react-sdk": "^3.0.0",
