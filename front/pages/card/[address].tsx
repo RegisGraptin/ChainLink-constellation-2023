@@ -12,7 +12,8 @@ import { useEthersSigner, walletClientToSigner } from '../../components/Signer';
 
 const { Networks } = require("../../components/Networks");
 // import { useEnsName } from 'wagmi';
-import { useEnsAddress } from './useEnsName';
+import { useEnsAddress } from './useEnsAddress';
+import TextBox from '../../components/TextBox'
 
 const { ethers } = require("ethers");
 
@@ -69,7 +70,7 @@ const Card: NextPage = () => {
     args: [process.env.NEXT_PUBLIC_ERC6551ACOUNT_ADDRESS, 11155111, process.env.NEXT_PUBLIC_GIFT_NFT, 1, 0],
   })
 
-  console.log(data)
+  console.log(bla)
 
     // ccip Transfer HOOK call
     const ccipTransfer = async () => {
@@ -143,33 +144,14 @@ const Card: NextPage = () => {
                   Send some money to the gift card
                 </button>
 
-                <button
+                {/* <button
                   type="button"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   onClick={() => createSubscriptionChainLinkFunction()}>
                   Send some link token
-                </button>
-
-
-                <button
-                  type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  onClick={() => xmtpInit()}>
-                  connect XMTP
-                </button>
+                </button> */}
               </section>
-              <form>
-                <input
-                  name="addressInput"
-                  type="text"
-
-                />
-                <input
-                  name="messageInput"
-                  type="text"
-
-                />
-              </form>
+              <TextBox></TextBox>
             </div>
           )
           }
