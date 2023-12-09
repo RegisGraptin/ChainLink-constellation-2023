@@ -1,12 +1,12 @@
 import { NextPage } from "next"
 import { Header } from "../../components/Header";
 import { useState } from 'react';
-import { Step1 } from "../../components/CreateGift/Step1";
-import { Step2 } from "../../components/CreateGift/Step2";
-import { Step3 } from "../../components/CreateGift/Step3";
-import { Step4 } from "../../components/CreateGift/Step4";
-import { Step5 } from "../../components/CreateGift/Step5";
-import { Step6 } from "../../components/CreateGift/Step6";
+import { Step1 } from "../../components/createGift/Step1"
+import { Step2 } from "../../components/createGift/Step2";
+import { Step3 } from "../../components/createGift/Step3";
+import { Step4 } from "../../components/createGift/Step4";
+import { Step5 } from "../../components/createGift/Step5";
+import { Step6 } from "../../components/createGift/Step6";
 
 const CreateCardPage: NextPage = () => {
 
