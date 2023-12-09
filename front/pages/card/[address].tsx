@@ -14,8 +14,10 @@ const { Networks } = require("../../components/Networks");
 // import { useEnsName } from 'wagmi';
 import { useEnsAddress } from './useEnsAddress';
 import TextBox from '../../components/TextBox'
+import React from 'react';
+import { ethers } from 'ethers';
 
-const { ethers } = require("ethers");
+// const { ethers } = require("ethers");
 
 
 const { SubscriptionManager } = require("@chainlink/functions-toolkit");
@@ -32,12 +34,30 @@ const Card: NextPage = () => {
 
   const LINK_TOKEN_ADDRESS = Networks[NETWORK].linkToken;
   const FUNCTIONS_ROUTER_ADDRESS = Networks[NETWORK].functionsRouter;
-  
-
   const DEFAULT_LINK_AMOUNT_TOKEN = 3;
 
   // Get the signer from the session
-  const signer = useEthersSigner();
+  const signer: ethers.Signer | undefined = useEthersSigner();
+
+  // Send fund to the chainlink subscription
+  async function createSubscriptionChainLinkFunction() {
+
+    if (signer == null) { console.log("Please connect your wallet"); }
+
+    console.log(signer);
+
+    const subscriptionManager = new SubscriptionManager({
+      signer,
+      LINK_TOKEN_ADDRESS,
+      FUNCTIONS_ROUTER_ADDRESS,
+    });
+
+    await subscriptionManager.initialize();
+
+  }
+  
+
+
 
   // Get the slug from the url
   const router = useRouter();
@@ -49,21 +69,22 @@ const Card: NextPage = () => {
     return addressRegex.test(address);
   }
 
-  // ENS part
 
+
+
+  // ENS part
   const name = 'account.eth'
-  const ensName = useEnsAddress({name, chainId: 11155111})
+  const ensName = useEnsAddress({ name, chainId: 11155111 })
 
   //Smart contract functions
+  const { data: blabla, write } = useContractWrite({
+    address: "0x09cb994F331d251d725B748E75CF4748F2dA6E1f",
+    abi: ccipABI.abi,
+    functionName: 'transferTokensPayNative',
+    args: ["16015286601757825753", process.env.NEXT_PUBLIC_TBD_ACCOUNT, "0xD21341536c5cF5EB1bcb58f6723cE26e8D8E90e4", 1000000000000000]
+  })
 
-    const {data: blabla, write} = useContractWrite({
-      address: "0x09cb994F331d251d725B748E75CF4748F2dA6E1f",
-      abi: ccipABI.abi,
-      functionName: 'transferTokensPayNative',
-      args: ["16015286601757825753", process.env.NEXT_PUBLIC_TBD_ACCOUNT, "0xD21341536c5cF5EB1bcb58f6723cE26e8D8E90e4", 1000000000000000]
-    })
-
-  const { data:bla } = useContractRead({
+  const { data: bla } = useContractRead({
     address: '0xe566b65Bc13604Eca2482D2432Ad6C75bf8eAA09',
     abi: wagmigotchiABI.abi,
     functionName: 'account',
@@ -72,11 +93,11 @@ const Card: NextPage = () => {
 
   console.log(bla)
 
-    // ccip Transfer HOOK call
-    const ccipTransfer = async () => {
-      await write()
-      await console.log("is this the only data?:" , blabla)
-    }
+  // ccip Transfer HOOK call
+  const ccipTransfer = async () => {
+    await write()
+    await console.log("is this the only data?:", blabla)
+  }
 
   // XMTP part
 
@@ -144,12 +165,12 @@ const Card: NextPage = () => {
                   Send some money to the gift card
                 </button>
 
-                {/* <button
+                <button
                   type="button"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   onClick={() => createSubscriptionChainLinkFunction()}>
                   Send some link token
-                </button> */}
+                </button>
               </section>
               <TextBox></TextBox>
             </div>
