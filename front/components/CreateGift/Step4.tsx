@@ -17,7 +17,7 @@ export const Step4 = () => {
 
   return (
     <div className='flex flex-col justify-center items-center space-y-16 mt-20'>
-        <p className="text-red-400 font-bold text-2xl">Recipient Address</p>
+        <p className="text-red-400 font-bold text-2xl">WRAPPD Address</p>
         <Button>{accountAddress}</Button>
         <p className="text-red-400 font-bold text-2xl">Delivery date</p>
         <Button>DD/MM/YYYY</Button>

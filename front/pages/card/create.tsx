@@ -36,6 +36,15 @@ const CreateCardPage: NextPage = () => {
         }
     }
 
+    function previousPage() {
+                // Update to the next pages
+                if (pageIndex < pageComponents.length - 1) {
+                    setPageIndex(pageIndex -1 );
+                } else {
+                    // TODO :: No more pages available --> Redirect?
+                }
+    }
+
     return (
         <>
         <Header/>
@@ -50,6 +59,13 @@ const CreateCardPage: NextPage = () => {
                     className="focus:outline-none mt-40 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                     onClick={nextPage}>
                         Go to the next page
+                </button>
+
+                <button 
+                    type="button" 
+                    className="focus:outline-none mt-40 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    onClick={previousPage}>
+                        Go to the previous page
                 </button>
 
                 {/* TODO :: Remove <br> but direclty at the bottom with css style */}
