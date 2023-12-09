@@ -4,11 +4,22 @@ import { Header } from "../../components/Header"
 import { useState } from 'react';
 import { Step1 } from "../../components/CreateGift/Step1";
 import { Step2 } from "../../components/CreateGift/Step2";
+import { Step3 } from "../../components/CreateGift/Step3";
 
 const CreateCardPage: NextPage = () => {
 
     // Here all my page components
-    const pageComponents = [<Step1 key="step1" />, <Step2 key="step2" />,];
+    const pageComponents = [
+        <Step1 key="step1" />, 
+        <Step2 key="step2" />, 
+        <Step3 key="step3" address="0x00" /> // Hardcoded address, but can be a variable one
+                                             // See that I am using the name to retrieve the data in the child component `props.address`
+                                             // You can pass also a function if you want that you can trigger only on the component.
+                                             // But, better if you can manage all the page properties inside the page component
+                                             // To avoid too much information in this page
+                                             // To update it, you will have to pass a function similar to `setPageIndex` to update the value
+                                             // Comment can be discard if you understand this step.
+    ];
 
     const [pageIndex, setPageIndex] = useState(0);
 
