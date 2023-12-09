@@ -78,7 +78,7 @@ const Card: NextPage = () => {
   const signer: ethers.Signer | undefined = useEthersSigner();
 
   // TODO :: Need to be created before hand
-  const encryptedSecretsRef = "0xa266736c6f744964006776657273696f6e1a65540efa";
+  const encryptedSecretsRef = "0xa266736c6f744964006776657273696f6e1a6574f100";
 
   // TODO :: should be created before hand
   const subscriptionId = 814;
@@ -116,8 +116,9 @@ const Card: NextPage = () => {
     functionName: 's_lastError',
   })
 
-  console.log("Last response:", ethers.decodeBytes32String(lastResponse));
-  console.log("Last error:", ethers.decodeBytes32String(lastError));
+  // console.log("Last response:", ethers.decodeBytes32String(lastResponse));
+  console.log("Last response:", lastResponse);
+  console.log("Last error:", lastError);
 
   
 
