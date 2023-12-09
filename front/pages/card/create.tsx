@@ -17,20 +17,13 @@ const CreateCardPage: NextPage = () => {
     const pageComponents = [
         <Step1 key="step1" nextPage={nextPage} />, 
         <Step2 key="step2" nextPage={nextPage} setEventType={setEventType}/>, 
-        <Step3 key="step3" address="0x00" />,
-        <Step4 key="step4" />,
-        <Step5 key="step5" />,
-        <Step6 key="step5" />
+        <Step3 key="step3" nextPage={nextPage} address="0x00" />,
+        <Step4 key="step4" nextPage={nextPage} />,
+        <Step5 key="step5" nextPage={nextPage} />,
+        <Step6 key="step5" nextPage={nextPage} />
     ];
 
     function nextPage() {
-        
-        console.log(pageIndex)
-        console.log(pageComponents.length)
-        console.log((pageIndex / pageComponents.length) * 100)
-        console.log((pageIndex / pageComponents.length) * 100 + "%")
-        
-        
         // Update to the next pages
         if (pageIndex < pageComponents.length - 1) {
             setPageIndex(pageIndex + 1);

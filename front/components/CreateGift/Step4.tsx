@@ -4,7 +4,7 @@ import wagmigotchiABI from "../../../contract//artifacts/contracts/ERC6551Regist
 import { Button } from '../Button';
 
 
-export const Step4 = () => {
+export const Step4 = (props:any) => {
 
     const { data:accountAddress } = useContractRead({
         address: '0xe566b65Bc13604Eca2482D2432Ad6C75bf8eAA09',
