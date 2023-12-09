@@ -17,17 +17,20 @@ const CreateCardPage: NextPage = () => {
     const pageComponents = [
         <Step1 key="step1" nextPage={nextPage} />, 
         <Step2 key="step2" nextPage={nextPage} setEventType={setEventType}/>, 
-        <Step3 key="step3" address="0x00" />, // Hardcoded address, but can be a variable one
+        <Step3 key="step3" address="0x00" />,
         <Step4 key="step4" />,
-        <Step5 key="step5" />,                                    // See that I am using the name to retrieve the data in the child component `props.address`
-        <Step6 key="step5" />                                     // You can pass also a function if you want that you can trigger only on the component.
-                                             // But, better if you can manage all the page properties inside the page component
-                                             // To avoid too much information in this page
-                                             // To update it, you will have to pass a function similar to `setPageIndex` to update the value
-                                             // Comment can be discard if you understand this step.
+        <Step5 key="step5" />,
+        <Step6 key="step5" />
     ];
 
     function nextPage() {
+        
+        console.log(pageIndex)
+        console.log(pageComponents.length)
+        console.log((pageIndex / pageComponents.length) * 100)
+        console.log((pageIndex / pageComponents.length) * 100 + "%")
+        
+        
         // Update to the next pages
         if (pageIndex < pageComponents.length - 1) {
             setPageIndex(pageIndex + 1);
@@ -35,24 +38,15 @@ const CreateCardPage: NextPage = () => {
             // TODO :: No more pages available --> Redirect?
         }
     }
-
-    function previousPage() {
-                // Update to the next pages
-                if (pageIndex < pageComponents.length - 1) {
-                    setPageIndex(pageIndex -1 );
-                } else {
-                    // TODO :: No more pages available --> Redirect?
-                }
-    }
-
+    
     return (
         <>
         <Header/>
-            <main className="">
-                {pageComponents[pageIndex]}
+            <main>
 
-
-                
+                <div className="container mx-auto">
+                    {pageComponents[pageIndex]}
+                </div>
 
                 <button 
                     type="button" 
@@ -61,20 +55,11 @@ const CreateCardPage: NextPage = () => {
                         Go to the next page
                 </button>
 
-                <button 
-                    type="button" 
-                    className="focus:outline-none mt-40 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                    onClick={previousPage}>
-                        Go to the previous page
-                </button>
-
-                {/* TODO :: Remove <br> but direclty at the bottom with css style */}
-                <br /><br /><br /><br />
-
                 {/* Progress bar - use a variable int to see how much page we still need */}
-                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                    <div className="bg-blue-600 h-2.5 rounded-full" style={{width: "45%"}}></div>
+                <div className="fixed bottom-0 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div className="bg-red-400 h-2.5 rounded-full" style={{width: ((pageIndex + 1) / pageComponents.length) * 100 + "%"}}></div>
                 </div>
+
             </main>
         </>
     )
