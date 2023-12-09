@@ -21,7 +21,7 @@ import { useEthersSigner, walletClientToSigner } from '../../components/Signer';
 
 const { Networks } = require("../../components/Networks");
 // import { useEnsName } from 'wagmi';
-import { useEnsAddress } from './useEnsAddress';
+import { useEnsAddress } from '../../resources/utils/useEnsAddress';
 import TextBox from '../../components/TextBox'
 import { Contract, ethers } from 'ethers';
 import { SecretsManager } from '@chainlink/functions-toolkit';

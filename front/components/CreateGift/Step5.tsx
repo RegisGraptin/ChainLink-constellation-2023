@@ -5,8 +5,8 @@ import { useContractRead } from 'wagmi'
 import wagmigotchiABI from "../../resources/ERC6551Registry.json";
 
 import { Button } from '../Button';
-import { useEnsName } from '../../pages/card/useEnsName';
-import { useEnsAddress } from '../../pages/card/useEnsAddress';
+import { useEnsName } from '../../resources/utils/useEnsName';
+import { useEnsAddress } from '../../resources/utils/useEnsAddress';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
