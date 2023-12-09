@@ -13,14 +13,16 @@ export const Step4 = (props:any) => {
     abi: wagmigotchiABI.abi,
     functionName: 'createAccount',
     args: [process.env.NEXT_PUBLIC_ERC6551ACOUNT_ADDRESS, 11155111, process.env.NEXT_PUBLIC_GIFT_NFT, 1, 0, "0x"],
-    onSuccess: async (data) => {
-      await props.nextPage() // setTimeout
-    }
+    // onSuccess: async (data) => {
+
+    // }
   })
 
   const createWRAP = async () => {
     await write()
-    
+    setTimeout(() => {
+      props.nextPage(); // Call the nextPage() function after the delay
+  }, 20000);
   }
  
   return (
