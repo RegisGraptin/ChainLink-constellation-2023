@@ -4,6 +4,7 @@ import { useContractWrite } from 'wagmi'
 import wagmigotchiABI from '../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json'
 import {useState, useEffect} from 'react'
 import { useAccount } from 'wagmi';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
 
@@ -38,7 +39,9 @@ const Home: NextPage = () => {
               Mint a NFT now to pool the fund.<br /> 
               Then, send it to your loved one on his birthday.
             </p>
-            <button onClick={() => write()} className='mt-10 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>Create Gift Card</button>
+            <Link href="/card/create">
+              <button className='mt-10 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>Create Gift Card</button>
+            </Link>
           </div>
 
 
