@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import { Header } from '../components/Header';
 import { useContractWrite } from 'wagmi'
-import wagmigotchiABI from '../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json'
+// import wagmigotchiABI from '../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json'
+import wagmigotchiABI from "../resources/ERC6551Registry.json";
 import {useState, useEffect} from 'react'
 import { useAccount } from 'wagmi';
 import Link from 'next/link';
