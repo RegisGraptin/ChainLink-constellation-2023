@@ -2,14 +2,16 @@ import React from 'react'
 import { useState } from 'react'
 
 
-const TextBox = () => {
-    const[value, setValue] = useState("")
-    const handleChange = (e:any) => setValue(e.target.value)
+const TextBox = ({children}: any) => {
+
+    const handleTextBoxClick = () => {
+        // Add functionality here for the button click
+        console.log('Button clicked!');
+      };
 
   return (
-    <div className='h-32 w-32 bg-white border-2 border-red-400 text-red-400 text-center items-center flex justify-center'>
-        <input type='text' value={value} onChange={handleChange}/>
-        <p>{value}</p>
+    <div onClick={handleTextBoxClick} className='h-32 w-32 bg-white border-2 border-red-400 text-red-400 text-center items-center flex justify-center'>
+        {children}
     </div>
   )
 }

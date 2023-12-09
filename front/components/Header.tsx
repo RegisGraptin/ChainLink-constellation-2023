@@ -6,10 +6,10 @@ export const Header = () => {
     return (
         <>
             <nav className="bg-white border-gray-200 dark:bg-gray-900">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-6">
                     <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <Image src="/gift.png" alt="Gift Logo" width="45" height="45" />
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Wrapped Gift</span>
+                        <Image src="/WRAPPD.jpg" alt="Gift Logo" width="45" height="45" />
+                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-red-400 italic">WRAPPD</span>
                     </a>
                     <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                         <ConnectButton />

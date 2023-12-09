@@ -1,20 +1,23 @@
 import { NextPage } from "next"
-import { Header } from "../../components/Header"
-
+import { Header } from "../../components/Header";
 import { useState } from 'react';
-import { Step1 } from "../../components/CreateGift/Step1";
-import { Step2 } from "../../components/CreateGift/Step2";
-import { Step3 } from "../../components/CreateGift/Step3";
+import { Step1 } from "../../components/createGift/Step1";
+import { Step2 } from "../../components/createGift/Step2";
+import { Step3 } from "../../components/createGift/Step3";
+import { Step4 } from "../../components/createGift/Step4";
+import { Step5 } from "../../components/createGift/Step5";
+import { Step6 } from "../../components/createGift/Step6";
 
 const CreateCardPage: NextPage = () => {
 
     // Here all my page components
     const pageComponents = [
-        <Step1 key="step1" />, 
-        <Step2 key="step2" />, 
-        <Step3 key="step3" address="0x00" /> // Hardcoded address, but can be a variable one
-                                             // See that I am using the name to retrieve the data in the child component `props.address`
-                                             // You can pass also a function if you want that you can trigger only on the component.
+        <Step1 key="step1" nextPage={nextPage} />, 
+        <Step2 key="step2" nextPage={nextPage}/>, 
+        <Step3 key="step3" address="0x00" />, // Hardcoded address, but can be a variable one
+        <Step4 key="step4" />,
+        <Step5 key="step5" />,                                    // See that I am using the name to retrieve the data in the child component `props.address`
+        <Step6 key="step5" />                                     // You can pass also a function if you want that you can trigger only on the component.
                                              // But, better if you can manage all the page properties inside the page component
                                              // To avoid too much information in this page
                                              // To update it, you will have to pass a function similar to `setPageIndex` to update the value
@@ -25,7 +28,7 @@ const CreateCardPage: NextPage = () => {
 
     function nextPage() {
         // Update to the next pages
-        if (pageIndex < pageComponents.length) {
+        if (pageIndex < pageComponents.length - 1) {
             setPageIndex(pageIndex + 1);
         } else {
             // TODO :: No more pages available --> Redirect?
@@ -34,16 +37,16 @@ const CreateCardPage: NextPage = () => {
 
     return (
         <>
-            <main>
-                <Header />
-                <h1>Create NFT Page</h1>
-
+        <Header/>
+            <main className="">
                 {pageComponents[pageIndex]}
 
 
+                
+
                 <button 
                     type="button" 
-                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    className="focus:outline-none mt-40 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                     onClick={nextPage}>
                         Go to the next page
                 </button>
