@@ -10,7 +10,7 @@ export const Inputfield = () => {
   return (
 
     <div className='flex justify-center items-center'>
-    <input className="text-red-400 bg-white font-semibold border-2 border-red-400 rounded-3xl w-52 h-12 flex justify-center items-center" type="text" value={value} onChange={handleValueChange}/>
+    <input className="text-red-400 bg-white font-semibold border-2 border-red-400 rounded-3xl w-52 h-12 flex justify-center items-center text-center" type="text" value={value} onChange={handleValueChange}/>
     </div>
   )
 }
