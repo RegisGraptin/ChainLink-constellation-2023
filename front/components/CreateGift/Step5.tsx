@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useContractRead } from 'wagmi'
-import wagmigotchiABI from "../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json";
+
+// import wagmigotchiABI from "../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json";
+import wagmigotchiABI from "../../resources/ERC6551Registry.json";
+
 import { Button } from '../Button';
 import { useEnsName } from '../../pages/card/useEnsName';
 import { useEnsAddress } from '../../pages/card/useEnsAddress';
