@@ -3,9 +3,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Header } from '../../components/Header';
 import { useContractRead, useContractWrite } from 'wagmi';
-import wagmigotchiABI from '../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json';
-import ccipABI from '../../../contract/artifacts/contracts/TokenTransferor.sol/TokenTransferor.json';
-import giftNFTAPI from "../../../contract/artifacts/contracts/GiftNFT.sol/GiftNFT.json";
+// import wagmigotchiABI from '../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json';
+import wagmigotchiABI from "../../resources/ERC6551Registry.json";
+
+// import ccipABI from '../../../contract/artifacts/contracts/TokenTransferor.sol/TokenTransferor.json';
+import ccipABI from "../../resources/TokenTransferor.json";
+
+// import giftNFTAPI from "../../../contract/artifacts/contracts/GiftNFT.sol/GiftNFT.json";
+import giftNFTAPI from "../../resources/GiftNFT.json";
+
+
 import { TokenboundClient } from '@tokenbound/sdk';
 const { Location } = require("@chainlink/functions-toolkit");
 
