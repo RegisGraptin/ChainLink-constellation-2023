@@ -10,10 +10,13 @@ import { Step6 } from "../../components/createGift/Step6";
 
 const CreateCardPage: NextPage = () => {
 
+    const [pageIndex, setPageIndex] = useState(0);
+    const [eventType, setEventType] = useState("");
+
     // Here all my page components
     const pageComponents = [
         <Step1 key="step1" nextPage={nextPage} />, 
-        <Step2 key="step2" nextPage={nextPage}/>, 
+        <Step2 key="step2" nextPage={nextPage} setEventType={setEventType}/>, 
         <Step3 key="step3" address="0x00" />, // Hardcoded address, but can be a variable one
         <Step4 key="step4" />,
         <Step5 key="step5" />,                                    // See that I am using the name to retrieve the data in the child component `props.address`
@@ -23,8 +26,6 @@ const CreateCardPage: NextPage = () => {
                                              // To update it, you will have to pass a function similar to `setPageIndex` to update the value
                                              // Comment can be discard if you understand this step.
     ];
-
-    const [pageIndex, setPageIndex] = useState(0);
 
     function nextPage() {
         // Update to the next pages
