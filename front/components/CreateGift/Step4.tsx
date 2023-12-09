@@ -1,21 +1,26 @@
 import React from 'react'
 import { Button } from '../Button'
-import { useContractWrite } from 'wagmi'
+import { useContractWrite, useWaitForTransaction } from 'wagmi'
 import wagmigotchiABI from '../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json'
 import { create } from 'domain'
+import { useState } from 'react'
 
 export const Step4 = (props:any) => {
- 
+
+
   const { data, isLoading, isSuccess, write } = useContractWrite({
     address: "0xe566b65Bc13604Eca2482D2432Ad6C75bf8eAA09",
     abi: wagmigotchiABI.abi,
     functionName: 'createAccount',
     args: [process.env.NEXT_PUBLIC_ERC6551ACOUNT_ADDRESS, 11155111, process.env.NEXT_PUBLIC_GIFT_NFT, 1, 0, "0x"],
+    onSuccess: async (data) => {
+      await props.nextPage() // setTimeout
+    }
   })
 
   const createWRAP = async () => {
     await write()
-    await props.nextPage()    
+    
   }
  
   return (

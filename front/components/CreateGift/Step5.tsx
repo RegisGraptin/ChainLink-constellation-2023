@@ -13,7 +13,7 @@ export const Step5 = (props: any) => {
   const address="0x49cB5Fa951AD2ABbC4d14239BfE215754c7Df030"
   const ensName = useEnsName({address, chainId:11155111})
 
-  const { data: accountAddress } = useContractRead({
+  const { data: accountAddress }:any = useContractRead({
     address: '0xe566b65Bc13604Eca2482D2432Ad6C75bf8eAA09',
     abi: wagmigotchiABI.abi,
     functionName: 'account',
@@ -26,7 +26,7 @@ export const Step5 = (props: any) => {
   return (
     <div className='flex flex-col justify-center items-center space-y-16 mt-20'>
       <p className="text-red-400 font-bold text-2xl">WRAPPD Address</p>
-      <Button>{accountAddress}</Button>
+      <button className='text-red-400 hover:text-white bg-white hover:bg-red-400 font-bold border-2 border-red-400 rounded-3xl w-[500px] h-12 transition-all duration-200'>{accountAddress}</button>
       <p className="text-red-400 font-bold text-2xl">Delivery date</p>
 
       <DatePicker
