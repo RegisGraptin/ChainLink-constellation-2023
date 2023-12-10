@@ -34,8 +34,8 @@ export const Step6 = (props: any) => {
       <p className="text-red-400 font-bold text-2xl"> Add funds to any chain on this WRAP</p>
       <p className="text-red-400 font-bold text-2xl"> It will be delivered to the recipient automatically</p>
       <div className='flex'>
-        <Button onClick={() => ccipCall()}>Send fund to the Wrapp</Button>
-        <Link href={"/card/" + accountAddress}>
+        <Button className="mr-5" onClick={() => ccipCall()}>Send fund to the Wrapp</Button>
+        <Link className="ml-5" href={"/card/" + accountAddress}>
           <Button>Share to friends</Button>
         </Link>
       </div>
