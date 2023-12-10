@@ -91,9 +91,9 @@ return Functions.encodeString(result);
 
 
 // Example conrtact address
-// const CONTRACT_ADDRESS = "0xeE28c200b5001f99718074AFC98A2549b84a4203"
+// const CONTRACT_ADDRESS = "0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D"
 
-// http://localhost:3000/card/0xeE28c200b5001f99718074AFC98A2549b84a4203
+// http://localhost:3000/card/0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D
 
 const Card: NextPage = () => {
 
@@ -119,7 +119,7 @@ const Card: NextPage = () => {
   
   // Generate GPT Request
   const { write: generateGPTImage, isLoading, isSuccess } = useContractWrite({
-    address: "0xeE28c200b5001f99718074AFC98A2549b84a4203",
+    address: "0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D",
     abi: giftNFTAPI.abi,
     functionName: 'sendRequest',
     args: [
@@ -135,14 +135,14 @@ const Card: NextPage = () => {
 
   // Retrieve last run response from GPT request
   const { data: lastResponse } = useContractRead({
-    address: "0xeE28c200b5001f99718074AFC98A2549b84a4203",
+    address: "0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D",
     abi: giftNFTAPI.abi,
     functionName: 's_lastResponse',
   })
 
   // Retrieve last error response from GPT request
   const { data: lastError } = useContractRead({
-    address: "0xeE28c200b5001f99718074AFC98A2549b84a4203",
+    address: "0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D",
     abi: giftNFTAPI.abi,
     functionName: 's_lastError',
   })
