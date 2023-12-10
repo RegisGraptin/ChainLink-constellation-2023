@@ -97,7 +97,7 @@ return Functions.encodeString(result);
 
 const Card: NextPage = () => {
 
-  const NETWORK = "polygonMumbai";
+  const NETWORK = "ethereumSepolia";
 
   const LINK_TOKEN_ADDRESS = Networks[NETWORK].linkToken;
   const FUNCTIONS_ROUTER_ADDRESS = Networks[NETWORK].functionsRouter;
@@ -281,7 +281,7 @@ const Card: NextPage = () => {
                   type="button"
                   className="text-red-400 hover:text-white bg-white hover:bg-red-400 font-bold border-2 border-red-400 rounded-3xl w-64 h-12 transition-all duration-200"
                   onClick={() => generateGPTImage()}>
-                  Generate an image using chainlink function & chat gpt
+                  Generate an image
                 </button>
               </section>
             </div>
