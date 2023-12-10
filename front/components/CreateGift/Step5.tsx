@@ -44,7 +44,7 @@ export const Step5 = (props: any) => {
       <button
         onClick={() => props.nextPage()}
         className="text-red-400 hover:text-white bg-white hover:bg-red-400 font-bold border-2 border-red-400 rounded-3xl w-64 h-12 transition-all duration-200">
-        Mint
+        Next
       </button>
 
 
