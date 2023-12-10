@@ -23,4 +23,12 @@ module.exports = {
     },
   }, 
   defaultNetwork: "hardhat",
+  etherscan: {
+    apiKey: {
+      sepolia: "HJFG7Y2C72ZZGX68T2G3XV74V669WYQI88",
+    },
+  },
+  sourcify: {
+    enabled: true
+  }
 };

@@ -3,14 +3,14 @@ require("hardhat");
 
 const { networks } = require("../networks.js");
 
-const NETWORK = "polygonMumbai";
+const NETWORK = "ethereumSepolia";
 
 const routerAddress = networks[NETWORK].functionsRouter;
 const donIdBytes32 = ethers.encodeBytes32String(networks[NETWORK].donId);
-
+const giftReceiver = "0x40aD3Ad4cCDE3F803F3A667374cf2Ac1aa3b514a";
 
 async function main() {
-  const Giftnft = await ethers.deployContract("GiftNFT", [routerAddress, donIdBytes32], 3600, "0x40aD3Ad4cCDE3F803F3A667374cf2Ac1aa3b514a");
+  const Giftnft = await ethers.deployContract("GiftNFT", [routerAddress, donIdBytes32, "ipfs://bafybeiaide7p4buvasnsx6vkewcsvopfnxeh35l2vf5xblpiwsi6enrlgy", 660, giftReceiver]);
   const giftnft = await Giftnft.waitForDeployment();
 
   // const Account = await ethers.deployContract("ERC6551Account");
@@ -24,6 +24,7 @@ async function main() {
   // const transferor = await Transferor.waitForDeployment();
 
   console.log("GiftNft contract deployed at:", giftnft.target);
+  console.log(routerAddress, donIdBytes32)
   // console.log("Account contract deployed at:", account.target);
   // console.log("Registry contract deployed at:", registry.target);
   // console.log("Transferor CCIP contract address deployed at:", transferor.target);

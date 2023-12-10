@@ -7,8 +7,7 @@ async function main() {
   const giftnft = await GiftNft.attach(process.env.NEXT_PUBLIC_GIFT_NFT);
   tokenId = await giftnft.nextId()
   //Default IPFS hash for Pinnie json metadata. Replace with your own if desired. 
-  const baseURI = "ipfs://QmTRxBoLapSUgAiaz2FxvQYW2ektgJnhoomzaQ8Q76puvA"
- 
+  const baseURI = "ipfs://bafybeiaide7p4buvasnsx6vkewcsvopfnxeh35l2vf5xblpiwsi6enrlgy"
 
   //Address you want to mint your NFT to
   const to = process.env.NEXT_PUBLIC_WALLET_ADDRESS
