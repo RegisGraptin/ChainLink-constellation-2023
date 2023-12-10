@@ -26,6 +26,7 @@ import { useEnsAddress } from '../../resources/utils/useEnsAddress';
 import TextBox from '../../components/TextBox'
 import { Contract, ethers } from 'ethers';
 import { SecretsManager } from '@chainlink/functions-toolkit';
+import { useState } from 'react';
 
 const { SubscriptionManager } = require("@chainlink/functions-toolkit");
 
@@ -58,34 +59,7 @@ console.log(result);
 return Functions.encodeString(result);
 `;
 
-// const axios = require('axios');
-
-// const API_KEY = 'TODO';
-
-// const generateImages = async () => {
-//   try {
-//     const response = await axios.post(
-//       'https://api.openai.com/v1/images/generations',
-//       {
-//         prompt: 'A gift card for a birthday',
-//         n: 1,                                //define the number of images
-//         size: '512x512',                     //define the resolution of image
-//       },
-//       {
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${API_KEY}`,
-//         },
-//       }
-//     );
-
-//     console.log(response.data);
-//     // Handle the response here, e.g., extract image data and display or save it.
-//   } catch (error) {
-//     console.error('Error:', error.response.data);
-//   }
-// };
-
+const axios = require('axios');
 
 // generateImages();
 
@@ -97,6 +71,7 @@ return Functions.encodeString(result);
 
 const Card: NextPage = () => {
 
+  const [imageLink, setImageLink] = useState("");
 
   // Get the slug from the url
   const router = useRouter();
@@ -152,6 +127,41 @@ const Card: NextPage = () => {
     abi: giftNFTAPI.abi,
     functionName: 's_lastError',
   })
+
+
+  const API_KEY = process.env.NEXT_PUBLIC_GPT_KEY;
+
+  const generateImages = async () => {
+    
+    generateGPTImage();
+    
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/images/generations',
+        {
+          prompt: 'A gift card for a birthday',
+          n: 1,                                //define the number of images
+          size: '512x512',                     //define the resolution of image
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`,
+          },
+        }
+      );
+
+      console.log(response.data.data[0].url);
+
+      setImageLink(response.data.data[0].url)
+      // Handle the response here, e.g., extract image data and display or save it.
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
+
 
   // // Show bytes content need to be decoded
   // console.log("Last response:", lastResponse);
@@ -261,7 +271,14 @@ const Card: NextPage = () => {
           {isValidAddress(contractAddress) && (
             <div className='flex justify-center items-center flex-col p-5 space-y-14 pt-20'>
 
-              <Image src="/generated_image.png" alt="Gift Logo" width="250" height="250" />
+              {imageLink == "" && (
+                <Image src="/generated_image.png" alt="Gift Logo" width="250" height="250" />
+              )}
+
+              {imageLink != "" && (
+                <img src={imageLink} width="250" height="250" />
+              )}
+              
 
               <p className="text-2xl text-red-400 text-center items-center flex justify-center font-bold">
                 Your Wrapp is ready, add funds on any chain to it. <br />
@@ -283,7 +300,7 @@ const Card: NextPage = () => {
                 <button
                   type="button"
                   className="text-red-400 hover:text-white bg-white hover:bg-red-400 font-bold border-2 border-red-400 rounded-3xl w-64 h-12 transition-all duration-200"
-                  onClick={() => generateGPTImage()}>
+                  onClick={() => generateImages()}>
                   Generate an image
                 </button>
               </section>
