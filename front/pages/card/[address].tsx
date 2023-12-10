@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Image from 'next/image'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Header } from '../../components/Header';
@@ -57,6 +58,36 @@ console.log(result);
 return Functions.encodeString(result);
 `;
 
+// const axios = require('axios');
+
+// const API_KEY = 'TODO';
+
+// const generateImages = async () => {
+//   try {
+//     const response = await axios.post(
+//       'https://api.openai.com/v1/images/generations',
+//       {
+//         prompt: 'A gift card for a birthday',
+//         n: 1,                                //define the number of images
+//         size: '512x512',                     //define the resolution of image
+//       },
+//       {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': `Bearer ${API_KEY}`,
+//         },
+//       }
+//     );
+
+//     console.log(response.data);
+//     // Handle the response here, e.g., extract image data and display or save it.
+//   } catch (error) {
+//     console.error('Error:', error.response.data);
+//   }
+// };
+
+
+// generateImages();
 
 
 // Example conrtact address
@@ -72,7 +103,7 @@ const Card: NextPage = () => {
   const FUNCTIONS_ROUTER_ADDRESS = Networks[NETWORK].functionsRouter;
   const CHAINLINK_DON_ID = Networks[NETWORK].donId;
   const DEFAULT_LINK_AMOUNT_TOKEN = 3;
-
+  
 
   // Get the signer from the session
   const signer: ethers.Signer | undefined = useEthersSigner();
@@ -86,6 +117,7 @@ const Card: NextPage = () => {
   const prompt = "Describe what a blockchain is in 15 words or less";
   const callbackGasLimit = 300_000;
   
+  // Generate GPT Request
   const { write: generateGPTImage, isLoading, isSuccess } = useContractWrite({
     address: "0xeE28c200b5001f99718074AFC98A2549b84a4203",
     abi: giftNFTAPI.abi,
@@ -101,57 +133,39 @@ const Card: NextPage = () => {
     ]
   })
 
+  // Retrieve last run response from GPT request
   const { data: lastResponse } = useContractRead({
     address: "0xeE28c200b5001f99718074AFC98A2549b84a4203",
     abi: giftNFTAPI.abi,
     functionName: 's_lastResponse',
-    onSuccess: (data) => {
-      
-    }
   })
 
+  // Retrieve last error response from GPT request
   const { data: lastError } = useContractRead({
     address: "0xeE28c200b5001f99718074AFC98A2549b84a4203",
     abi: giftNFTAPI.abi,
     functionName: 's_lastError',
   })
 
-  // console.log("Last response:", ethers.decodeBytes32String(lastResponse));
-  console.log("Last response:", lastResponse);
-  console.log("Last error:", lastError);
+  // // Show bytes content need to be decoded
+  // console.log("Last response:", lastResponse);
+  // console.log("Last error:", lastError);
 
-  
 
-  // Generate an image with ChatGPT using Chainlink function
-  async function createSubscriptionChainLinkFunction() {
+  // // Invalid signer -> different library between hardhat and here 
+  // const subscriptionManager = new SubscriptionManager({
+  //   signer,
+  //   LINK_TOKEN_ADDRESS,
+  //   FUNCTIONS_ROUTER_ADDRESS,
+  // });
 
-    if (signer == null) { console.log("Please connect your wallet"); }
+  // await subscriptionManager.initialize();
 
-    if (!isSuccess) {
-      await generateGPTImage();
-    } else {
-      // Read the content
-      console.log(lastResponse);
-    }
-
-    
-
-    // // Invalid signer -> different library between hardhat and here 
-    // const subscriptionManager = new SubscriptionManager({
-    //   signer,
-    //   LINK_TOKEN_ADDRESS,
-    //   FUNCTIONS_ROUTER_ADDRESS,
-    // });
-
-    // await subscriptionManager.initialize();
-
-    // const secretsManager = new SecretsManager({
-    //   signer,
-    //   FUNCTIONS_ROUTER_ADDRESS,
-    //   CHAINLINK_DON_ID,
-    // });
-
-  }
+  // const secretsManager = new SecretsManager({
+  //   signer,
+  //   FUNCTIONS_ROUTER_ADDRESS,
+  //   CHAINLINK_DON_ID,
+  // });
 
   // Get the slug from the url
   const router = useRouter();
@@ -240,42 +254,47 @@ const Card: NextPage = () => {
 
       <main>
 
-        <section>
+        <section className="container mx-auto">
           {isValidAddress(contractAddress) && (
-            <div>
-              <h1 className="text-3xl font-bold underline">
-                This is a valid address: {router.query.address}
-              </h1>
+            <div className='flex justify-center items-center flex-col p-5 space-y-14 pt-20'>
 
+              <Image src="/generated_image.png" alt="Gift Logo" width="250" height="250" />
+
+              <p className="text-2xl text-red-400 text-center items-center flex justify-center font-bold">
+                Your Wrapp is ready, add funds on any chain to it. <br />
+                Wrapp will be delivered automatically
+              </p>
+
+              <span className='text-sm'>Here the address of your gift card: `{router.query.address}`</span>
+            
               <section>
-                <h2>Here my birthday card</h2>
-                <p>Some text</p>
-
+                
                 <button
                   type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  className="text-red-400 hover:text-white bg-white hover:bg-red-400 font-bold border-2 border-red-400 rounded-3xl w-64 h-12 transition-all duration-200"
                   onClick={() => ccipTransfer()}>
-                  Send some money to the gift card
+                  Send funds
                 </button>
 
-                <button
+                {/* <button
                   type="button"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   onClick={() => createSubscriptionChainLinkFunction()}>
                   Generate an image using chainlink function & chat gpt
-                </button>
+                </button> */}
               </section>
             </div>
           )
           }
           {!isValidAddress(contractAddress) && (
-            <div>
-              <h1 className="text-3xl font-bold underline">
-                This is an invalid address: {router.query.address}
-              </h1>
-              <Link href="/card/0x0000000000000000000000000000000000000000">
-                You can click here, it is a valid address: 0x0000000000000000000000000000000000000000
-              </Link>
+            <div className='flex justify-center items-center flex-col p-5 space-y-14 pt-20'>
+
+              <Image src="/generated_image.png" alt="Gift Logo" width="250" height="250" />
+
+              <p className="text-2xl text-red-400 text-center items-center flex justify-center font-bold">
+                Please provide a valid address.<br />
+                `{router.query.address}` is an invalid address.
+              </p>
             </div>
           )
           }
