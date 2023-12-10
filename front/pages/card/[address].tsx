@@ -125,7 +125,7 @@ const Card: NextPage = () => {
   
   // Generate GPT Request
   const { write: generateGPTImage, isLoading, isSuccess } = useContractWrite({
-    address: contractAddress,
+    address: contractAddress as `0x${string}`,
     abi: giftNFTAPI.abi,
     functionName: 'sendRequest',
     args: [
@@ -141,14 +141,14 @@ const Card: NextPage = () => {
 
   // Retrieve last run response from GPT request
   const { data: lastResponse } = useContractRead({
-    address: contractAddress,
+    address: contractAddress as `0x${string}`,
     abi: giftNFTAPI.abi,
     functionName: 's_lastResponse',
   })
 
   // Retrieve last error response from GPT request
   const { data: lastError } = useContractRead({
-    address: contractAddress,
+    address: contractAddress as `0x${string}`,
     abi: giftNFTAPI.abi,
     functionName: 's_lastError',
   })
