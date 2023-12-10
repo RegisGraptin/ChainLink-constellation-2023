@@ -50,7 +50,7 @@ const CreateCardPage: NextPage = () => {
                     {pageComponents[pageIndex]}
                 </div>
 
-                <button 
+                {/* <button 
                     type="button" 
                     className="focus:outline-none mt-40 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                     onClick={nextPage}>
@@ -61,7 +61,7 @@ const CreateCardPage: NextPage = () => {
                     className="focus:outline-none mt-40 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                     onClick={prevPage}>
                         Go to the Prev page
-                </button>
+                </button> */}
 
                 {/* Progress bar - use a variable int to see how much page we still need */}
                 <div className="fixed bottom-0 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
