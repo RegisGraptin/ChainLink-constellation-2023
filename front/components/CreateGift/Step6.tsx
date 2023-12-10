@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button } from '../Button'
 import { useContractWrite } from 'wagmi'
-import ccipABI from '../../../contract/artifacts/contracts/TokenTransferor.sol/TokenTransferor.json'
+// import ccipABI from '../../../contract/artifacts/contracts/TokenTransferor.sol/TokenTransferor.json'
+import ccipABI from "../../resources/TokenTransferor.json";
 
 export const Step6 = (props:any) => {
 

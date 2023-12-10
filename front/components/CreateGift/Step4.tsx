@@ -1,9 +1,10 @@
-import React from 'react'
-import { Button } from '../Button'
+
+import React, { useState } from 'react'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
-import wagmigotchiABI from '../../../contract/artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json'
+// import wagmigotchiABI from "../../../contract//artifacts/contracts/ERC6551Registry.sol/ERC6551Registry.json";
+import wagmigotchiABI from "../../resources/ERC6551Registry.json";
+import { Button } from '../Button'
 import { create } from 'domain'
-import { useState } from 'react'
 
 export const Step4 = (props:any) => {
 
