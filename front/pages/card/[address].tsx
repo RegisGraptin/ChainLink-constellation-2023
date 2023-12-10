@@ -97,6 +97,12 @@ return Functions.encodeString(result);
 
 const Card: NextPage = () => {
 
+
+  // Get the slug from the url
+  const router = useRouter();
+  const contractAddress: string = router.query.address as string;
+
+    
   const NETWORK = "ethereumSepolia";
 
   const LINK_TOKEN_ADDRESS = Networks[NETWORK].linkToken;
@@ -119,7 +125,7 @@ const Card: NextPage = () => {
   
   // Generate GPT Request
   const { write: generateGPTImage, isLoading, isSuccess } = useContractWrite({
-    address: "0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D",
+    address: contractAddress,
     abi: giftNFTAPI.abi,
     functionName: 'sendRequest',
     args: [
@@ -135,14 +141,14 @@ const Card: NextPage = () => {
 
   // Retrieve last run response from GPT request
   const { data: lastResponse } = useContractRead({
-    address: "0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D",
+    address: contractAddress,
     abi: giftNFTAPI.abi,
     functionName: 's_lastResponse',
   })
 
   // Retrieve last error response from GPT request
   const { data: lastError } = useContractRead({
-    address: "0x26eccA91c44beF3d2Fe4eCA31b13Ac88D8efE56D",
+    address: contractAddress,
     abi: giftNFTAPI.abi,
     functionName: 's_lastError',
   })
@@ -167,9 +173,6 @@ const Card: NextPage = () => {
   //   CHAINLINK_DON_ID,
   // });
 
-  // Get the slug from the url
-  const router = useRouter();
-  const contractAddress: string = router.query.address as string;
 
   // Check if we have a valid smart contract address
   function isValidAddress(address: string): boolean {
